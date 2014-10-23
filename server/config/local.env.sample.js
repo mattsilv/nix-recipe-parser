@@ -12,8 +12,6 @@ module.exports = {
     // Control debug level for modules using visionmedia/debug
     DEBUG:          '',
     // Nutritionix api settings
-    api:            {
-        APP_ID:  'PROVIDE IT IN local.env.js',
-        APP_KEY: 'PROVIDE IT IN local.env.js'
-    }
+    API_APP_ID:  'PROVIDE IT IN local.env.js',
+    API_APP_KEY: 'PROVIDE IT IN local.env.js'
 };

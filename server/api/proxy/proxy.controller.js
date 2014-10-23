@@ -72,7 +72,7 @@ module.exports = function (app) {
                             error:    apiErr
                         });
                     } else {
-                        res.json(apiBody.results);
+                        res.json(apiBody);
                     }
                 }
             );

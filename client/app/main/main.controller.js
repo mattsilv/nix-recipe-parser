@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('externalApiApp')
-    .controller('MainCtrl', function ($scope, $http) {
+    .controller('MainCtrl', function ($scope, $http, $filter) {
         $scope.columns = [
             {
                 header:     'qty',
@@ -17,7 +17,16 @@ angular.module('externalApiApp')
             },
             {
                 header:     'Energy',
-                valueField: 'est_calories'
+                valueField: 'est_calories',
+                getSummary: function () {
+                    var result = 0;
+                    if ($scope.apiResponse && $scope.apiResponse.results) {
+                        angular.forEach($scope.apiResponse.results, function (item) {
+                            result += item.est_calories;
+                        });
+                    }
+                    return result;
+                }
             }
         ];
         $scope.error = null;
@@ -25,7 +34,7 @@ angular.module('externalApiApp')
         $scope.data = '';
         $scope.estimations = [];
 
-        $scope.estimate = function(){
+        $scope.estimate = function () {
             $scope.error = null;
             $scope.estimations = [];
             $http.post(
@@ -33,14 +42,14 @@ angular.module('externalApiApp')
                 $scope.data,
                 {
                     headers: {
-                             'Content-Type': 'text/plain'
+                        'Content-Type': 'text/plain'
                     }
                 }
             )
-                .success(function (estimations) {
-                    $scope.estimations = estimations;
+                .success(function (apiResponse) {
+                    $scope.apiResponse = apiResponse;
                 })
-                .error(function(error){
+                .error(function (error) {
                     $scope.error = error;
                 });
         };
@@ -48,7 +57,7 @@ angular.module('externalApiApp')
         $scope.getProperty = function (object, property) {
             var current = object, keys = property.split('.'), i;
             for (i = 0; i < keys.length; i += 1) {
-                if(current[keys[i]]){
+                if (current[keys[i]]) {
                     current = current[keys[i]];
                 } else {
                     current = null;
