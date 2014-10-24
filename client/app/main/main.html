@@ -33,7 +33,7 @@
                 <tbody>
                 <tr ng-repeat="estimation in apiResponse.results">
                     <td ng-repeat="column in columns">
-                        {{getProperty(estimation, column.valueField)}}
+                        {{column.valueField ? getProperty(estimation, column.valueField) : column.getValue(estimation)}}
                     </td>
                 </tr>
                 </tbody>

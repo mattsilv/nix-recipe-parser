@@ -17,13 +17,23 @@ angular.module('externalApiApp')
             },
             {
                 header:     'Energy',
-                valueField: 'est_calories',
+                getValue:   function (estimation) {
+                    var result;
+                    if (estimation.nutrients) {
+                        result = $filter('filter')(estimation.nutrients, {attr_id: '208'});
+                        if (result.length) {
+                            return result[0].value + ' ' + result[0].unit
+                        }
+                    }
+                    return result;
+                },
                 getSummary: function () {
-                    var result = 0;
-                    if ($scope.apiResponse && $scope.apiResponse.results) {
-                        angular.forEach($scope.apiResponse.results, function (item) {
-                            result += item.est_calories;
-                        });
+                    var result;
+                    if ($scope.apiResponse && $scope.apiResponse.total) {
+                        result = $filter('filter')($scope.apiResponse.total.nutrients, {attr_id: '208'});
+                        if (result.length) {
+                            return result[0].value + ' ' + result[0].unit
+                        }
                     }
                     return result;
                 }

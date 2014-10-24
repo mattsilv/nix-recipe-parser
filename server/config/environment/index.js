@@ -30,7 +30,7 @@ var all = {
 
     // Nutritionix api settings
     api:     {
-        host:    'https://api.nutritionix.com',
+        host:    process.env.API_HOST || 'https://api.nutritionix.com',
         APP_ID:  process.env.API_APP_ID,
         APP_KEY: process.env.API_APP_KEY
     }
