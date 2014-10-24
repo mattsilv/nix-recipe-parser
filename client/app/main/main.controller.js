@@ -40,11 +40,11 @@ angular.module('externalApiApp')
         $scope.error = null;
 
         $scope.data = '';
-        $scope.estimations = [];
+        $scope.apiResponse = null;
 
         $scope.estimate = function () {
             $scope.error = null;
-            $scope.estimations = [];
+            $scope.apiResponse = null;
             $http.post(
                 '/api/v2/estimated-nutrition/bulk',
                 $scope.data,

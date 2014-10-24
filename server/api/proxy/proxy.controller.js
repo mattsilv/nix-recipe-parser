@@ -56,7 +56,7 @@ module.exports = function (app) {
                         return next({
                             status: 500,
                             messsage: 'api error',
-                            error:    apiErr || apiBody
+                            error:    apiErr || jsonSafeParse(apiBody) || {errors: {msg: apiBody}}
                         });
                     } else {
                         res.setHeader('Content-Type', 'application/json');
