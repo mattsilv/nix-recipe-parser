@@ -22,20 +22,18 @@ angular.module('externalApiApp')
                     if (estimation.nutrients) {
                         result = $filter('filter')(estimation.nutrients, {attr_id: '208'});
                         if (result.length) {
-                            return result[0].value + ' ' + result[0].unit
+                            return $filter('number')(result[0].value, 2).toString() + ' ' + result[0].unit
                         }
                     }
-                    return result;
                 },
                 getSummary: function () {
                     var result;
                     if ($scope.apiResponse && $scope.apiResponse.total) {
                         result = $filter('filter')($scope.apiResponse.total.nutrients, {attr_id: '208'});
                         if (result.length) {
-                            return result[0].value + ' ' + result[0].unit
+                            return $filter('number')(result[0].value, 2).toString() + ' ' + result[0].unit
                         }
                     }
-                    return result;
                 }
             }
         ];

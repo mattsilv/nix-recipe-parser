@@ -51,10 +51,6 @@ module.exports = function (app) {
             request(
                 requestOptions,
                 function (apiErr, apiRes, apiBody) {
-                    // JSON.parse will cause uncaught exception
-                    // when called on an invalid JSON Object
-                    apiBody = jsonSafeParse(apiBody);
-
                     // check for general error
                     if (apiErr || apiRes && apiRes.statusCode !== 200) {
                         return next({
@@ -62,17 +58,9 @@ module.exports = function (app) {
                             messsage: 'api error',
                             error:    apiErr || apiBody
                         });
-                    }
-
-                    // ensure apiBody was successfully parsed
-                    else if (!isJSON(apiBody)) {
-                        return next({
-                            status: 500,
-                            messsage: 'failed to parse api response',
-                            error:    apiErr
-                        });
                     } else {
-                        res.json(apiBody);
+                        res.setHeader('Content-Type', 'application/json');
+                        res.send(apiBody);
                     }
                 }
             );
