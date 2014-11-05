@@ -8,7 +8,7 @@ angular.module('externalApiApp')
                 valueField: 'serving_qty'
             },
             {
-                header:     'mesure',
+                header:     'measure',
                 valueField: 'serving_unit'
             },
             {
@@ -35,6 +35,10 @@ angular.module('externalApiApp')
                         }
                     }
                 }
+            },
+            {
+                header:     'NDB number',
+                valueField: 'ndb_no'
             }
         ];
         $scope.error = null;
