@@ -24,10 +24,10 @@ module.exports = function (app) {
     app.use(compression());
     // collect raw request body
     app.use(function (req, res, next) {
-        var contentType = req.headers['content-type'] || ''
-            , mime = contentType.split(';')[0];
+        var contentType = req.headers['content-type'] || '',
+            mime = contentType.split(';')[0];
 
-        if (mime != 'text/plain') {
+        if (mime !== 'text/plain') {
             return next();
         }
 

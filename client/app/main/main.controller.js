@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('externalApiApp')
-    .controller('MainCtrl', function ($scope, $http, $filter) {
+    .controller('MainCtrl', function ($scope, $http, $filter, $location) {
+        console.log($location.search());
+
+
         $scope.columns = [
             {
                 header:     'qty',
@@ -22,7 +25,7 @@ angular.module('externalApiApp')
                     if (estimation.nutrients) {
                         result = $filter('filter')(estimation.nutrients, {attr_id: '208'});
                         if (result.length) {
-                            return $filter('number')(result[0].value, 2).toString() + ' ' + result[0].unit
+                            return $filter('number')(result[0].value, 2).toString() + ' ' + result[0].unit;
                         }
                     }
                 },
@@ -31,7 +34,7 @@ angular.module('externalApiApp')
                     if ($scope.apiResponse && $scope.apiResponse.total) {
                         result = $filter('filter')($scope.apiResponse.total.nutrients, {attr_id: '208'});
                         if (result.length) {
-                            return $filter('number')(result[0].value, 2).toString() + ' ' + result[0].unit
+                            return $filter('number')(result[0].value, 2).toString() + ' ' + result[0].unit;
                         }
                     }
                 }
@@ -42,9 +45,12 @@ angular.module('externalApiApp')
             }
         ];
         $scope.error = null;
-
-        $scope.data = '';
         $scope.apiResponse = null;
+        $scope.data = $location.search().request || '';
+
+        $scope.updateUrl = function () {
+            $location.search({request: $scope.data});
+        };
 
         $scope.estimate = function () {
             $scope.error = null;
@@ -79,4 +85,9 @@ angular.module('externalApiApp')
 
             return current;
         };
+
+        // init
+        if ($scope.data) {
+            $scope.estimate();
+        }
     });
