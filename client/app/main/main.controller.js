@@ -2,9 +2,6 @@
 
 angular.module('externalApiApp')
     .controller('MainCtrl', function ($scope, $http, $filter, $location) {
-        console.log($location.search());
-
-
         $scope.columns = [
             {
                 header:     'qty',
@@ -56,7 +53,7 @@ angular.module('externalApiApp')
             $scope.error = null;
             $scope.apiResponse = null;
             $http.post(
-                '/api/v2/estimated-nutrition/bulk',
+                '/api/v2/natural',
                 $scope.data,
                 {
                     headers: {
@@ -66,6 +63,11 @@ angular.module('externalApiApp')
             )
                 .success(function (apiResponse) {
                     $scope.apiResponse = apiResponse;
+                    $scope.total = {
+                        name: 'Estimated product',
+                        brand: {},
+                        label: apiResponse.total
+                    };
                 })
                 .error(function (error) {
                     $scope.error = error;
