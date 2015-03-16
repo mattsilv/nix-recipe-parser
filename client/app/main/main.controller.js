@@ -37,6 +37,17 @@ angular.module('externalApiApp')
                 }
             },
             {
+                header:     'weight',
+                getValue:   function (estimation) {
+                    if (estimation.serving_weight) {
+                        return estimation.serving_weight.toString() + 'g';
+                    }
+                },
+                getSummary: function () {
+                    return $scope.apiResponse.total.serving_weight_grams.toString() + 'g';
+                }
+            },
+            {
                 header:     'NDB number',
                 valueField: 'ndb_no'
             }
