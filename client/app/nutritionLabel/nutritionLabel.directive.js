@@ -57,8 +57,8 @@ angular.module('externalApiApp')
                             'showProteins':                    1,
                             'showVitaminA':                    false,
                             'showVitaminC':                    false,
-                            'showCalcium':                     1,
-                            'showIron':                        1,
+                            'showCalcium':                     false,
+                            'showIron':                        false,
 
                             //these are the default values for the nutrition info
                             'valueServingSizeUnit':            labelData.serving && labelData.serving.uom || 0,
