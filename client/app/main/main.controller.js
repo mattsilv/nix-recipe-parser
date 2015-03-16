@@ -64,7 +64,7 @@ angular.module('externalApiApp')
                 .success(function (apiResponse) {
                     $scope.apiResponse = apiResponse;
                     $scope.total = {
-                        name: 'Estimated product',
+                        name: 'Serving',
                         brand: {},
                         label: apiResponse.total
                     };

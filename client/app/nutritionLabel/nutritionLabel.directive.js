@@ -21,8 +21,6 @@ angular.module('externalApiApp')
 
                         labelData = scope.item.label;
                         
-                        console.log(labelData.serving_weight_grams || (labelData.serving && labelData.serving.metric.qty) || 0);
-
                         label.nutritionLabel({
                             'width':                           attributes.width || 283,
                             'itemName':                        scope.item.name,
@@ -57,8 +55,8 @@ angular.module('externalApiApp')
                             'showFibers':                      1,
                             'showSugars':                      1,
                             'showProteins':                    1,
-                            'showVitaminA':                    1,
-                            'showVitaminC':                    1,
+                            'showVitaminA':                    false,
+                            'showVitaminC':                    false,
                             'showCalcium':                     1,
                             'showIron':                        1,
 
@@ -68,7 +66,7 @@ angular.module('externalApiApp')
                             'valueServingUnitQuantity':        labelData.serving && labelData.serving.qty || 0,
                             'valueServingWeightGrams':         labelData.serving_weight_grams || (labelData.serving && labelData.serving.metric.qty) || 0,
                             'valueCalories':                   getNutrientValue(labelData.nutrients, 208),
-//                            'valueFatCalories':                labelData.nutrients.nf_calories_from_fat.value || 0,
+                            'valueFatCalories':                getNutrientValue(labelData.nutrients, 204) * 9,
                             'valueTotalFat':                   getNutrientValue(labelData.nutrients, 204),
                             'valueSatFat':                     getNutrientValue(labelData.nutrients, 606),
                             'valueTransFat':                   getNutrientValue(labelData.nutrients, 605),
